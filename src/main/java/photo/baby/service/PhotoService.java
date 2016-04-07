@@ -6,6 +6,7 @@ import photo.baby.bean.Prompt;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public interface PhotoService {
@@ -14,10 +15,14 @@ public interface PhotoService {
 
     public Photo save(MultipartFile multipartFile, String name) throws IOException;
 
+    public boolean delete(Photo photo);
+
     public List<Photo> latestPhotos();
 
     public Prompt save(Prompt p);
 
     public Iterable<Photo> all();
+
+    public Photo find(int id);
 
 }

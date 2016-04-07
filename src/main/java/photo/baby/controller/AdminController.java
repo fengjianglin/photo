@@ -122,4 +122,18 @@ public class AdminController {
         return p;
     }
 
+    @RequestMapping(value = "photo/{photo_id}", method = {RequestMethod.DELETE})
+    public String delete(HttpSession session,
+                         HttpServletRequest req,
+                         @PathVariable int photo_id,
+                         RedirectAttributes attr) {
+        Photo photo = photoService.find(photo_id);
+        if (photo != null) {
+            photoService.delete(photo);
+            attr.addFlashAttribute("flash", "删除成功");
+        } else {
+            attr.addFlashAttribute("error", "没有发现照片");
+        }
+        return "redirect:/admin";
+    }
 }

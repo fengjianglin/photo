@@ -52,6 +52,13 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
         return photoRepository.save(photo);
     }
 
+    public boolean delete(Photo photo) {
+        photoRepository.delete(photo);
+        new File(fileDir, photo.getName()).delete();
+        return true;
+    }
+
+
     @Override
     public List<Photo> latestPhotos() {
         PageRequest pageRequest = new PageRequest(0, 10, Sort.Direction.DESC, "id");
@@ -77,5 +84,13 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
             list.add(p);
         }
         return list;
+    }
+
+    public Photo find(int id) {
+        Photo p = photoRepository.findOne(id);
+        if (p != null) {
+            p.setUrl(host + "/photo/" + p.getName());
+        }
+        return p;
     }
 }
