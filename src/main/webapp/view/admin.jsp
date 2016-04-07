@@ -7,7 +7,7 @@
     <script>
 
         function requestProgress() {
-            $.get("upload_progress?key=${key}", function (data) {
+            $.get("/admin/upload_progress?key=${key}", function (data) {
                 progressing(data)
             });
         }
@@ -34,7 +34,7 @@
 
     </script>
 
-    <form id= "form" class="form-inline" action="do_upload/${key}" method="post" enctype="multipart/form-data">
+    <form id="form" class="form-inline" action="/admin/photo/${key}" method="post" enctype="multipart/form-data">
 
         <div class="form-group">
             <div class="input-group">

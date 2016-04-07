@@ -7,9 +7,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width,user-scalable=no"/>
     <title>HAIZI.PHOTO</title>
-    <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet">
-    <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
-    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+    <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/bootstrap/js/jquery.js"></script>
+    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 
 </head>
 <body>
