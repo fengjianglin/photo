@@ -41,7 +41,6 @@ var gallery = {
             });
             createElement(this.span, "img", {
                 'class': "img-slide",
-                'photo_id': images[i].getAttribute("photo_id"),
                 'src': images[i].src
             });
             this.N = i;
@@ -96,8 +95,7 @@ var gallery = {
 }
 
 
-window.onload = function () {
-
+$(function(){
     $("#screen").css({
         width: $(window).width(),
         height: $(window).height()
@@ -110,8 +108,9 @@ window.onload = function () {
     $(document.body).doubletap(function (e) {
         e.preventDefault()
     });
+});
 
+window.onload = function () {
     gallery.play();
     music.play();
-
 }

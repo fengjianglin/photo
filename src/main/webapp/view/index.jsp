@@ -19,10 +19,11 @@
 
     <div id="screen"></div>
 
-    <div id="images" style="visibility:hidden">
+    <div id="images" style="visibility: hidden;">
         <c:forEach var="photo" items="${photos}">
-            <img src="${photo.url}" id="photo_${photo.id}" photo_id="${photo.id}"/>
+            <img src="${photo.url}"/>
         </c:forEach>
     </div>
+
 
 </t:photo_frame>

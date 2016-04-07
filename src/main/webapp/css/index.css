@@ -6,6 +6,10 @@ body {
     width: 100%;
     position: relative;
     z-index: 2147483647;
+    background-color: #666666;
+    filter: alpha(opacity=50); /*支持 IE 浏览器*/
+    -moz-opacity: 0.50; /*支持 FireFox 浏览器*/
+    opacity: 0.50; /*支持 Chrome, Opera, Safari 等浏览器*/
 }
 
 #gallery_btn {
@@ -81,7 +85,6 @@ body {
 
 .span-slide {
     position: absolute;
-    font-size: 1px;
     overflow: hidden;
 }
 
