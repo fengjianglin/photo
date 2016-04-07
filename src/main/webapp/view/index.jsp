@@ -21,23 +21,8 @@
 
     <div id="images" style="visibility:hidden">
         <c:forEach var="photo" items="${photos}">
-            <img src="${photo.url}" id="photo_${photo.id}" photo_id="${photo.id}" class="clickable"/>
+            <img src="${photo.url}" id="photo_${photo.id}" photo_id="${photo.id}"/>
         </c:forEach>
-    </div>
-
-    <div id="popover" class="popover image_toolbar">
-        <div class="input-group has-success">
-            <span class="input-group-addon">
-                <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
-            </span>
-            <span class="input-group-addon">
-                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-            </span>
-            <input id="prompt" type="text" class="form-control"/>
-            <span id="submit" class="input-group-addon">
-                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-            </span>
-        </div>
     </div>
 
 </t:photo_frame>
