@@ -33,23 +33,42 @@
         }
 
     </script>
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <form id="form" class="form-inline" action="/admin/photo/${key}" method="post"
+                  enctype="multipart/form-data">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">选择图片</div>
+                        <input id="image" type="file" class="form-control" name="image"/>
+                <span class="input-group-btn">
+                     <button id="button" type="submit" class="btn btn-primary input-group" onclick="requestProgress();">
+                         上传
+                     </button>
+                </span>
+                    </div>
+                </div>
+            </form>
 
-    <form id="form" class="form-inline" action="/admin/photo/${key}" method="post" enctype="multipart/form-data">
-
-        <div class="form-group">
-            <div class="input-group">
-                <div class="input-group-addon">选择图片</div>
-                <input id="image" type="file" class="form-control" name="image"/>
+            <div id="progress" class="progress" style="margin-top: 15px;display: none;">
+                <div id="progressbar" class="progress-bar progress-bar-striped active" role="progressbar"
+                     style="width: 0%;min-width: 6em;">
+                    准备上传
+                </div>
             </div>
         </div>
-        <button id="button" type="submit" class="btn btn-primary" onclick="requestProgress();">上传</button>
-    </form>
-
-    <div id="progress" class="progress" style="margin-top: 15px;display: none;">
-        <div id="progressbar" class="progress-bar progress-bar-striped active" role="progressbar"
-             style="width: 0%;min-width: 6em;">
-            准备上传
-        </div>
     </div>
+
+
+    <c:forEach var="photo" items="${photos}" varStatus="status">
+
+        <c:if test="${status.index % 6 == 0}">
+            <div class="row">
+        </c:if>
+        <div class="col-xs-2 col-md-2"><img src="${photo.url}" style="width: 100%; height: 100%;"/></div>
+        <c:if test="${status.index % 6 == 5}">
+            </div>
+        </c:if>
+    </c:forEach>
 
 </t:layout>

@@ -5,29 +5,28 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>BABY->PHOTO</title>
+    <meta name="viewport"
+          content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimun-scale=1.0"/>
+    <title>HAIZI.PHOTO</title>
     <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/bootstrap/js/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 
 </head>
-<body style="padding:0;">
+<body style="padding:8px 0;">
 
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <div class="col-sm-12 col-xs-12">
-            <div style="margin: 0 -15px;">
-                <c:if test="${error != null}">
-                    <div width="80%" align="center" class="alert alert-danger" role="alert">${error}</div>
-                </c:if>
-
-                <c:if test="${flash != null}">
-                    <div width="80%" align="center" class="alert alert-success" role="alert">${flash}</div>
-                </c:if>
-                <jsp:doBody />
-            </div>
+            <c:if test="${error != null}">
+                <div width="80%" align="center" class="alert alert-danger" role="alert">${error}</div>
+            </c:if>
+            <c:if test="${flash != null}">
+                <div width="80%" align="center" class="alert alert-success" role="alert">${flash}</div>
+            </c:if>
         </div>
     </div>
+    <jsp:doBody/>
 </div>
 </body>
 </html>

@@ -64,7 +64,18 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
         return list;
     }
 
-    public Prompt save(Prompt p){
+    public Prompt save(Prompt p) {
         return promptRepository.save(p);
+    }
+
+
+    public Iterable<Photo> all() {
+        List<Photo> list = new ArrayList<Photo>();
+        Iterable<Photo> photos = photoRepository.findAll();
+        for (Photo p : photos) {
+            p.setUrl(host + "/photo/" + p.getName());
+            list.add(p);
+        }
+        return list;
     }
 }

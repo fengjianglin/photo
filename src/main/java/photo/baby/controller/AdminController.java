@@ -47,6 +47,7 @@ public class AdminController {
     public String index(Model model) {
         String key = sequenceGenerator.getAndIncrement() + "_" + random.nextInt(Integer.MAX_VALUE);
         model.addAttribute("key", key);
+        model.addAttribute("photos", photoService.all());
         return "admin";
     }
 

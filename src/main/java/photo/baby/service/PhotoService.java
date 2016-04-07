@@ -18,4 +18,6 @@ public interface PhotoService {
 
     public Prompt save(Prompt p);
 
+    public Iterable<Photo> all();
+
 }
