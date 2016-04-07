@@ -12,8 +12,13 @@
     <div id="toolbar">
         <div id="gallery_btn" class="on" onclick="gallery.playOrPause(this);">
         </div>
+        <div id="refresh_btn">
+        </div>
+
         <div id="audio_btn" class="on" onclick="music.playOrPause(this,'music')">
             <audio id="music" src="/raw/qqdwdbb.mp3" autoplay="autoplay" loop="loop"></audio>
+        </div>
+        <div id="next_btn" onclick="music.next($('#audio_btn'), 'music')">
         </div>
     </div>
 

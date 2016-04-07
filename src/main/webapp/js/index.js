@@ -1,3 +1,24 @@
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+var music_list = [
+    "/raw/andxj.m4a",
+    "/raw/bbw.m4a",
+    "/raw/cqkd.m4a",
+    "/raw/ljf.m4a",
+    "/raw/lyxz.m4a",
+    "/raw/myjxq.m4a",
+    "/raw/myq.m4a",
+    "/raw/qqdwdbb.mp3",
+    "/raw/sb.m4a",
+    "/raw/skbljs.m4a",
+    "/raw/teqjxq.m4a",
+    "/raw/yj.m4a",
+    "/raw/yydjtc.m4a",
+    "/raw/zals.m4a",
+    "/raw/zyxc.m4a"
+]
 var music = {
     status: 0, // 0:暂停；1:播放
     playOrPause: function (target, id) {
@@ -15,6 +36,12 @@ var music = {
     play: function () {
         this.status = 1;
         document.getElementById('music').play();
+    },
+    next: function (target, id) {
+        var audio = document.getElementById(id);
+        audio.setAttribute("src", music_list[getRandomInt(0, 14)]);
+        audio.load();
+        audio.play();
     }
 }
 
@@ -95,7 +122,7 @@ var gallery = {
 }
 
 
-$(function(){
+$(function () {
     $("#screen").css({
         width: $(window).width(),
         height: $(window).height()
