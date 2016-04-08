@@ -1,7 +1,3 @@
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 var music_list = [
     "/raw/andxj.m4a",
     "/raw/bbw.m4a",
@@ -19,32 +15,41 @@ var music_list = [
     "/raw/zals.m4a",
     "/raw/zyxc.m4a"
 ]
+
+function getRandomMusicUrl() {
+    return music_list[Math.floor(Math.random() * music_list.length)];
+}
+
 var music = {
     status: 0, // 0:暂停；1:播放
-    play_or_pause: function (target, id) {
-        var audio = document.getElementById(id);
+    play_or_pause: function (btn_id, audio_id) {
+        var btn = document.getElementById(btn_id);
+        var audio = document.getElementById(audio_id);
         if (this.status == 1) {
             this.status = 0;
-            $(target).removeClass('on').addClass('off');
+            $(btn).removeClass('on').addClass('off');
             audio.pause();
         } else {
             this.status = 1;
-            $(target).removeClass('off').addClass('on');
+            $(btn).removeClass('off').addClass('on');
+            if (!!!$(audio).attr("src")) {
+                $(audio).attr("src", getRandomMusicUrl());
+                audio.load();
+            }
             audio.play();
         }
     },
 
-    random: function (target, id) {
-        var audio = document.getElementById(id);
+    random: function (btn_id, audio_id) {
+        var btn = document.getElementById(btn_id);
+        var audio = document.getElementById(audio_id);
         if (this.status == 0) {
-            audio.play();
             this.status = 1;
-            $(target).removeClass('off').addClass('on');
-        } else {
-            audio.setAttribute("src", music_list[getRandomInt(0, 14)]);
-            audio.load();
-            audio.play();
+            $(btn).removeClass('off').addClass('on');
         }
+        $(audio).attr("src", getRandomMusicUrl());
+        audio.load();
+        audio.play();
     }
 }
 

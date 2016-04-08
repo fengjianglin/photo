@@ -17,7 +17,7 @@ public interface PhotoService {
 
     public boolean delete(Photo photo);
 
-    public List<Photo> latestPhotos();
+    public List<Photo> latestPhotos(int page);
 
     public Prompt save(Prompt p);
 

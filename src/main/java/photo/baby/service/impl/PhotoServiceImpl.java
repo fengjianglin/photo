@@ -60,11 +60,11 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
 
 
     @Override
-    public List<Photo> latestPhotos() {
-        PageRequest pageRequest = new PageRequest(0, 10, Sort.Direction.DESC, "id");
+    public List<Photo> latestPhotos(int page) {
+        PageRequest pageRequest = new PageRequest(page, 10, Sort.Direction.DESC, "id");
         List<Photo> list = new ArrayList<Photo>();
-        Page<Photo> page = photoRepository.pageablePhotos(pageRequest);
-        for (Photo p : page) {
+        Page<Photo> photos = photoRepository.pageablePhotos(pageRequest);
+        for (Photo p : photos) {
             p.setUrl(host + "/photo/" + p.getName());
             list.add(p);
         }

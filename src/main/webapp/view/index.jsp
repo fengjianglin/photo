@@ -12,14 +12,17 @@
     <div id="toolbar">
 
         <div id="gallery_btn" class="on" onclick="gallery.play_or_pause(this);"></div>
-        <div id="refresh_btn"></div>
+
+        <div id="prev_btn"></div>
+        <a id="refresh_btn" href="/?p=${page + 1}"></a>
+
         <div id="next_btn"></div>
 
         <div class="vertical-line"></div>
 
-        <div id="random_btn" onclick="music.random($('#audio_btn'), 'music')"></div>
-        <div id="audio_btn" onclick="music.play_or_pause(this,'music')">
-            <audio id="music" src="/raw/qqdwdbb.mp3" loop="loop"></audio>
+        <div id="random_btn" onclick="music.random('audio_btn', 'music')"></div>
+        <div id="audio_btn" onclick="music.play_or_pause('audio_btn','music')">
+            <audio id="music" loop="loop"></audio>
         </div>
 
         <div class="vertical-line"></div>
