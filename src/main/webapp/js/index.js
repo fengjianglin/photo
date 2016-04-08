@@ -37,11 +37,15 @@ var music = {
         this.status = 1;
         document.getElementById('music').play();
     },
-    next: function (target, id) {
+
+    random: function (target, id) {
         var audio = document.getElementById(id);
         audio.setAttribute("src", music_list[getRandomInt(0, 14)]);
         audio.load();
         audio.play();
+
+        this.status = 1;
+        $(target).removeClass('off').addClass('on');
     }
 }
 
