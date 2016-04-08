@@ -21,7 +21,7 @@ var music_list = [
 ]
 var music = {
     status: 0, // 0:暂停；1:播放
-    playOrPause: function (target, id) {
+    play_or_pause: function (target, id) {
         var audio = document.getElementById(id);
         if (this.status == 1) {
             this.status = 0;
@@ -33,19 +33,18 @@ var music = {
             audio.play();
         }
     },
-    play: function () {
-        this.status = 1;
-        document.getElementById('music').play();
-    },
 
     random: function (target, id) {
         var audio = document.getElementById(id);
-        audio.setAttribute("src", music_list[getRandomInt(0, 14)]);
-        audio.load();
-        audio.play();
-
-        this.status = 1;
-        $(target).removeClass('off').addClass('on');
+        if (this.status == 0) {
+            audio.play();
+            this.status = 1;
+            $(target).removeClass('off').addClass('on');
+        } else {
+            audio.setAttribute("src", music_list[getRandomInt(0, 14)]);
+            audio.load();
+            audio.play();
+        }
     }
 }
 
@@ -98,7 +97,7 @@ var gallery = {
         }
     },
 
-    playOrPause: function (target) {
+    play_or_pause: function (target) {
         with (this) {
             if (status == 0) {
                 status = 1;
@@ -143,5 +142,4 @@ $(function () {
 
 window.onload = function () {
     gallery.play();
-    music.play();
 }

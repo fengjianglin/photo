@@ -9,8 +9,15 @@
     <script>
 
         function requestProgress() {
-            $.get("/admin/upload_progress?key=${key}", function (data) {
-                progressing(data)
+            $.ajax({
+                url: "/admin/upload_progress?key=${key}",
+                async: false,
+                dataType: "json",
+                type: "GET",
+                success: function (data) {
+                    console.log(data);
+                    progressing(data);
+                }
             });
         }
 
