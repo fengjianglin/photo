@@ -4,9 +4,30 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:layout>
+
+    <script src="${pageContext.request.contextPath}/js/ajaxfileupload.js"></script>
     <link href="${pageContext.request.contextPath}/css/admin.css" rel="stylesheet">
 
     <script>
+
+        function ajaxFileUpload() {
+            $.ajaxFileUpload({
+                        url: "/admin/photo_json/${key}",
+                        secureUri: false,
+                        fileElementId: 'image_input',
+                        dataType: 'json',
+                        success: function (data, status) {
+                            window.location.reload();
+                        },
+                        error: function (data, status, e) {
+                            alert(data);
+                            alert(e);
+                        }
+                    }
+            )
+            requestProgress();
+            return false;
+        }
 
         function requestProgress() {
             $.ajax({
@@ -26,7 +47,7 @@
                 $("#progress").show();
                 setTimeout("requestProgress()", 500);
             } else if (data.status == 1) {
-                $("#image, #button").attr("disabled", true);
+                $("#image_input, #button").attr("disabled", true);
                 var num = Math.round(data.now * 100 / data.max) + "%";
                 $("#progressbar").css("width", num);
                 $("#progressbar").text(num);
@@ -37,29 +58,26 @@
                 $("#progressbar").text(num);
             } else {
                 $("#progress").hide();
-                $("#image, #button").removeAttribute("disabled");
+                $("#image_input, #button").removeAttribute("disabled");
             }
         }
 
     </script>
     <div class="row">
         <div class="col-sm-12 col-xs-12 col">
-            <form id="form" class="form-inline" action="/admin/photo/${key}" method="post"
-                  enctype="multipart/form-data">
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">选择图片</div>
-                        <input id="image" type="file" class="form-control" name="image"/>
+            <div class="input-group">
+                <div class="input-group-addon">选择图片</div>
+                <input id="image_input" type="file" class="form-control" name="image"/>
                 <span class="input-group-btn">
-                     <button id="button" type="submit" class="btn btn-primary input-group" onclick="requestProgress();">
+                     <button id="button" class="btn btn-primary input-group" onclick="ajaxFileUpload();">
                          上传
                      </button>
                 </span>
-                    </div>
-                </div>
-            </form>
+            </div>
+        </div>
 
-            <div id="progress" class="progress" style="margin: 0px; display: none;">
+        <div class="col-sm-12 col-xs-12 col">
+            <div id="progress" class="progress" style="display: none;">
                 <div id="progressbar" class="progress-bar progress-bar-striped active" role="progressbar"
                      style="width: 0%;min-width: 6em;">
                     准备上传

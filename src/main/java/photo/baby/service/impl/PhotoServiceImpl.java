@@ -78,7 +78,7 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
 
     public Iterable<Photo> all() {
         List<Photo> list = new ArrayList<Photo>();
-        Iterable<Photo> photos = photoRepository.findAll();
+        Iterable<Photo> photos = photoRepository.findAllByOrderByIdDesc();
         for (Photo p : photos) {
             p.setUrl(host + "/photo/" + p.getName());
             list.add(p);

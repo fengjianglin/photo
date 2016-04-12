@@ -44,11 +44,12 @@ public class AdminController {
         return "admin";
     }
 
-    @RequestMapping(value = "photo/{key}", method = {RequestMethod.POST})
-    public String photo(HttpSession session,
-                        HttpServletRequest req,
-                        @PathVariable String key,
-                        RedirectAttributes attr) {
+    private Photo _photo(HttpSession session,
+                         HttpServletRequest req,
+                         @PathVariable String key,
+                         RedirectAttributes attr) {
+
+        Photo photo = null;
 
         Progress p = (Progress) session.getAttribute(key);
         if (p == null) {
@@ -68,6 +69,7 @@ public class AdminController {
 
         if (resolver.isMultipart(req)) {
             MultipartHttpServletRequest multipartRequest = resolver.resolveMultipart(req);
+
             p2.setStatus(2);
             MultipartFile image = multipartRequest.getFile("image");
 
@@ -78,7 +80,7 @@ public class AdminController {
                     String imageFilename = image.getOriginalFilename();
                     imageFilename = now.getTime() + imageFilename;
                     try {
-                        Photo photo = photoService.save(image, imageFilename);
+                        photo = photoService.save(image, imageFilename);
                         p2.setSave(image.getSize());
                         p2.setStatus(3);
                         attr.addFlashAttribute("flash", "上传成功");
@@ -102,7 +104,26 @@ public class AdminController {
 
         session.removeAttribute(key);
 
+        return photo;
+    }
+
+    @RequestMapping(value = "photo/{key}", method = {RequestMethod.POST})
+    public String photo(HttpSession session,
+                        HttpServletRequest req,
+                        @PathVariable String key,
+                        RedirectAttributes attr) {
+        _photo(session, req, key, attr);
         return "redirect:/admin";
+    }
+
+    @RequestMapping(value = "photo_json/{key}", method = {RequestMethod.POST})
+    @ResponseBody
+    public Photo photo_json(HttpSession session,
+                            HttpServletRequest req,
+                            @PathVariable String key,
+                            RedirectAttributes attr) {
+        Photo p = _photo(session, req, key, attr);
+        return p;
     }
 
     @RequestMapping(value = "upload_progress", produces = "application/json;charset=utf-8")

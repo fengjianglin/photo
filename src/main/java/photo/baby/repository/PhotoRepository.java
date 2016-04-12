@@ -14,4 +14,6 @@ public interface PhotoRepository extends PagingAndSortingRepository<Photo, Integ
     @Query("select a from Photo a")
     public Page<Photo> pageablePhotos(Pageable page);
 
+    public List<Photo> findAllByOrderByIdDesc();
+
 }
