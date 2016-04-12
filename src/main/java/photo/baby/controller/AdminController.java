@@ -116,7 +116,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @RequestMapping(value = "photo_json/{key}", method = {RequestMethod.POST})
+    @RequestMapping(value = "photo/json/{key}", method = {RequestMethod.POST})
     @ResponseBody
     public Photo photo_json(HttpSession session,
                             HttpServletRequest req,

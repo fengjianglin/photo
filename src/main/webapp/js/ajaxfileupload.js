@@ -131,15 +131,7 @@ jQuery.extend({
 
             }
         }
-        // Timeout checker
-        if (s.timeout > 0) {
-            setTimeout(function () {
-                // Check to see if the request is still happening
-                if (!requestDone) uploadCallback("timeout");
-            }, s.timeout);
-        }
         try {
-
             var form = jQuery('#' + formId);
             jQuery(form).attr('action', s.url);
             jQuery(form).attr('method', 'POST');

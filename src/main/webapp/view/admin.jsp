@@ -11,8 +11,9 @@
     <script>
 
         function ajaxFileUpload() {
+            requestProgress();
             $.ajaxFileUpload({
-                        url: "/admin/photo_json/${key}",
+                        url: "/admin/photo/json/${key}",
                         secureUri: false,
                         fileElementId: 'image_input',
                         dataType: 'json',
@@ -20,42 +21,40 @@
                             window.location.reload();
                         },
                         error: function (data, status, e) {
+                            progressing({
+                                status: -1
+                            })
                             alert(data);
                             alert(e);
                         }
                     }
             )
-            requestProgress();
             return false;
         }
 
         function requestProgress() {
             $.ajax({
                 url: "/admin/upload_progress?key=${key}",
-                async: false,
+                async: true,
                 dataType: "json",
                 type: "GET",
                 success: function (data) {
-                    console.log(data);
                     progressing(data);
                 }
             });
         }
 
         function progressing(data) {
+            // 0:未开始；1:正在上传；2:正在处理；3:完成；-1:上传异常
             if (data.status == 0) {
                 $("#progress").show();
-                setTimeout("requestProgress()", 500);
-            } else if (data.status == 1) {
                 $("#image_input, #button").attr("disabled", true);
-                var num = Math.round(data.now * 100 / data.max) + "%";
-                $("#progressbar").css("width", num);
-                $("#progressbar").text(num);
                 setTimeout("requestProgress()", 500);
-            } else if (data.status == 2) {
+            } else if (data.status == 1 || data.status == 2) {
                 var num = Math.round(data.now * 100 / data.max) + "%";
                 $("#progressbar").css("width", num);
                 $("#progressbar").text(num);
+                setTimeout("requestProgress()", 100);
             } else {
                 $("#progress").hide();
                 $("#image_input, #button").removeAttribute("disabled");
