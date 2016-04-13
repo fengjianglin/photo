@@ -166,7 +166,7 @@ var gallery = {
             var m = photos.length % LENGTH;
             if (photos.length > 0 && m != 0) {
                 for (var i = m; i < LENGTH; i++) {
-                    photos[photos.length] = photos[i];
+                    photos[photos.length] = photos[i - m];
                 }
             }
 
