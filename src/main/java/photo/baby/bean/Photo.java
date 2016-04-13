@@ -21,7 +21,19 @@ public class Photo implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "create_at")
+    // 图片宽度 px
+    @Column(name = "width")
+    private int width;
+
+    // 图片高度 px
+    @Column(name = "height")
+    private int height;
+
+    // 图片大小 byte
+    @Column(name = "size")
+    private long size;
+
+    @Column(name = "created_at")
     private Date createdAt;
 
     @Transient
@@ -41,6 +53,31 @@ public class Photo implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public long getSize() {
+        return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
     }
 
     public Date getCreatedAt() {

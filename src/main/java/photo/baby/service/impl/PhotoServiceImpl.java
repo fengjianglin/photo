@@ -14,6 +14,8 @@ import photo.baby.repository.PromptRepository;
 import photo.baby.service.AlbumService;
 import photo.baby.service.PhotoService;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,9 +47,14 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
 
     @Override
     public Photo save(MultipartFile multipartFile, String name) throws IOException {
-        multipartFile.transferTo(new File(fileDir, name));
+        File image = new File(fileDir, name);
+        multipartFile.transferTo(image);
+        BufferedImage bufferedImage = ImageIO.read(image);
         Photo photo = new Photo();
         photo.setName(name);
+        photo.setWidth(bufferedImage.getWidth());
+        photo.setHeight(bufferedImage.getHeight());
+        photo.setSize(multipartFile.getSize());
         photo.setCreatedAt(new Date());
         return photoRepository.save(photo);
     }

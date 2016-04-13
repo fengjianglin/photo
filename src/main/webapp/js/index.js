@@ -56,38 +56,45 @@ var music = {
 // 图片动画
 
 var gallery = {
+
+    LENGTH: 6, // 最大播放图片数量
     status: 0, // 0:暂停；1:播放
+    target: null,
+    photos: [],
     Zooms: [],
-    images: 0,
     screenWidth: 0,
     screenHeight: 0,
-    createElement: function (container, type, param) {
-        var elem = document.createElement(type);
-        for (var key in param) {
-            elem.setAttribute(key, param[key]);
-        }
-        container.appendChild(elem);
-        return elem;
-    },
+    start: 0,
+    end: 0,
+    callback: null,
+
     Zoom: function (i) {
         with (gallery) {
-            this.span = createElement(document.getElementById("screen"), "span", {
-                'class': 'span-slide'
-            });
-            createElement(this.span, "img", {
-                'class': "img-slide",
-                'src': images[i].src
-            });
+            this.span = document.createElement("span");
+            this.span.setAttribute("class", 'span-slide');
+            target.appendChild(this.span);
+
+            var image = document.createElement("img");
+            image.setAttribute("class", 'img-slide');
+            image.setAttribute("src", photos[i].url);
+            this.span.appendChild(image);
+
             this.N = i;
-            this.ratio = images[i].width / images[i].height;
+            this.ratio = photos[i].width / photos[i].height;
+
+            if (i >= start && i < end) {
+                $(this.span).show();
+            } else {
+                $(this.span).hide();
+            }
         }
     },
 
     loop: function () {
         with (this) {
-            for (i = 0; i < images.length; i++) {
+            for (var i = start; i < end; i++) {
                 Zooms[i].N += 1 / 160;
-                h = Math.pow(5, Zooms[i].N % images.length);
+                h = Math.pow(5, Zooms[i].N % (end - start));
                 with (Zooms[i].span.style) {
                     left = ((screenWidth - (h * Zooms[i].ratio)) / (screenWidth + h) * (screenWidth * 0.5)) + "px";
                     top = ((screenHeight - h) / (screenHeight + h) * (screenHeight * 0.5)) + "px";
@@ -102,29 +109,73 @@ var gallery = {
         }
     },
 
-    play_or_pause: function (target) {
+    play_or_pause: function () {
         with (this) {
             if (status == 0) {
                 status = 1;
-                $(target).removeClass('off').addClass('on');
+                if (callback != null) {
+                    callback("play");
+                }
                 loop();
             } else {
                 status = 0;
-                $(target).removeClass('on').addClass('off');
+                if (callback != null) {
+                    callback("pause");
+                }
             }
         }
     },
 
-    play: function () {
+    animation: function () {
+        alert("animation");
+    },
+
+    next: function () {
         with (this) {
-            status = 1;
-            screenWidth = parseInt($("#screen").css("width"));
-            screenHeight = parseInt($("#screen").css("height"));
-            images = $("#images img");
-            for (var i = 0; i < images.length; i++) {
+
+            for (var i = start; i < end; i++) {
+                $(Zooms[i].span).hide();
+            }
+
+            if (end < photos.length) {
+                start = end;
+                end += LENGTH;
+                end = end > photos.length ? photos.length : end;
+            } else {
+                start = 0;
+                end = photos.length > LENGTH ? LENGTH : photos.length;
+            }
+
+            for (var i = start; i < end; i++) {
+                $(Zooms[i].span).show();
+            }
+
+        }
+        console.log(this.start);
+        console.log(this.end);
+    },
+
+    init: function (_target, _photos, _callback) {
+        with (this) {
+            callback = _callback;
+            target = _target;
+            photos = _photos;
+            screenWidth = parseInt($(target).css("width"));
+            screenHeight = parseInt($(target).css("height"));
+
+            var m = photos.length % LENGTH;
+            if (photos.length > 0 && m != 0) {
+                for (var i = m; i < LENGTH; i++) {
+                    photos[photos.length] = photos[i];
+                }
+            }
+
+            start = 0;
+            end = LENGTH;
+
+            for (var i = 0; i < photos.length; i++) {
                 Zooms[i] = new Zoom(i);
             }
-            loop();
         }
     }
 }
@@ -145,6 +196,3 @@ $(function () {
     });
 });
 
-window.onload = function () {
-    gallery.play();
-}

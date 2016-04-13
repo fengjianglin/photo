@@ -21,11 +21,7 @@
                             window.location.reload();
                         },
                         error: function (data, status, e) {
-                            progressing({
-                                status: -1
-                            })
-                            alert(data);
-                            alert(e);
+                            progressing({status: -1})
                         }
                     }
             )

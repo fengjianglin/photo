@@ -9,14 +9,28 @@
     <script src="${pageContext.request.contextPath}/js/double.tap.js"></script>
     <script src="${pageContext.request.contextPath}/js/index.js"></script>
 
+    <script>
+        window.onload = function () {
+
+            gallery.init(document.getElementById("screen"),
+                    ${photos},
+                    function (status) {
+                        if ("play" == status) {
+                            $("#gallery_btn").removeClass('off').addClass('on');
+                        } else if ("pause" == status) {
+                            $("#gallery_btn").removeClass('on').addClass('off');
+                        }
+                    });
+
+            gallery.play_or_pause();
+        }
+    </script>
+
     <div id="toolbar">
 
-        <div id="gallery_btn" class="on" onclick="gallery.play_or_pause(this);"></div>
-
-        <div id="prev_btn"></div>
-        <a id="refresh_btn" href="/?p=${page + 1}"></a>
-
-        <div id="next_btn"></div>
+        <div id="gallery_btn" onclick="gallery.play_or_pause();"></div>
+        <div id="gallery_next_btn" onclick="gallery.next();"></div>
+        <div id="gallery_animation_btn" onclick="gallery.animation();"></div>
 
         <div class="vertical-line"></div>
 
@@ -32,12 +46,5 @@
     </div>
 
     <div id="screen"></div>
-
-    <div id="images" style="visibility: hidden;">
-        <c:forEach var="photo" items="${photos}">
-            <img src="${photo.url}"/>
-        </c:forEach>
-    </div>
-
 
 </t:photo_frame>

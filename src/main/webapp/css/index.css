@@ -39,30 +39,21 @@ body {
     background-size: 100%;
 }
 
-#refresh_btn {
-    margin: 4px;
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    background: url('../images/refresh.png') no-repeat 0 0;
-    background-size: 100%;
-}
-
-#prev_btn {
-    margin: 4px;
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    background: url('../images/prev.png') no-repeat 0 0;
-    background-size: 100%;
-}
-
-#next_btn {
+#gallery_next_btn {
     margin: 4px;
     display: inline-block;
     width: 32px;
     height: 32px;
     background: url('../images/next.png') no-repeat 0 0;
+    background-size: 100%;
+}
+
+#gallery_animation_btn {
+    margin: 4px;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background: url('../images/animation.png') no-repeat 0 0;
     background-size: 100%;
 }
 
