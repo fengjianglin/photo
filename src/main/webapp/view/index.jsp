@@ -41,7 +41,7 @@
 
         <div class="vertical-line"></div>
 
-        <div id="list_btn"></div>
+        <div id="list_btn"  onclick="alert('Go To List')"></div>
 
     </div>
 

@@ -1,27 +1,31 @@
-var music_list = [
-    "/raw/andxj.m4a",
-    "/raw/bbw.m4a",
-    "/raw/cqkd.m4a",
-    "/raw/ljf.m4a",
-    "/raw/lyxz.m4a",
-    "/raw/myjxq.m4a",
-    "/raw/myq.m4a",
-    "/raw/qqdwdbb.mp3",
-    "/raw/sb.m4a",
-    "/raw/skbljs.m4a",
-    "/raw/teqjxq.m4a",
-    "/raw/yj.m4a",
-    "/raw/yydjtc.m4a",
-    "/raw/zals.m4a",
-    "/raw/zyxc.m4a"
-]
-
-function getRandomMusicUrl() {
-    return music_list[Math.floor(Math.random() * music_list.length)];
-}
-
 var music = {
     status: 0, // 0:暂停；1:播放
+    list: ["/raw/andxj.m4a",
+        "/raw/bbw.m4a",
+        "/raw/cqkd.m4a",
+        "/raw/ljf.m4a",
+        "/raw/lyxz.m4a",
+        "/raw/myjxq.m4a",
+        "/raw/myq.m4a",
+        "/raw/qqdwdbb.mp3",
+        "/raw/sb.m4a",
+        "/raw/skbljs.m4a",
+        "/raw/teqjxq.m4a",
+        "/raw/yj.m4a",
+        "/raw/yydjtc.m4a",
+        "/raw/zals.m4a",
+        "/raw/zyxc.m4a"],
+
+    currentMusicIndex: 0,
+
+    randomMusicUrl: function () {
+        var i = Math.floor(Math.random() * music.list.length);
+        if (this.currentMusicIndex == i) {
+            return this.randomMusicUrl();
+        }
+        return music.list[i];
+    },
+
     play_or_pause: function (btn_id, audio_id) {
         var btn = document.getElementById(btn_id);
         var audio = document.getElementById(audio_id);
@@ -33,7 +37,7 @@ var music = {
             this.status = 1;
             $(btn).removeClass('off').addClass('on');
             if (!!!$(audio).attr("src")) {
-                $(audio).attr("src", getRandomMusicUrl());
+                $(audio).attr("src", this.randomMusicUrl());
                 audio.load();
             }
             audio.play();
@@ -47,13 +51,11 @@ var music = {
             this.status = 1;
             $(btn).removeClass('off').addClass('on');
         }
-        $(audio).attr("src", getRandomMusicUrl());
+        $(audio).attr("src", this.randomMusicUrl());
         audio.load();
         audio.play();
     }
 }
-
-// 图片动画
 
 var gallery = {
 
@@ -62,11 +64,51 @@ var gallery = {
     target: null,
     photos: [],
     Zooms: [],
-    screenWidth: 0,
-    screenHeight: 0,
+    WIDTH: 0,
+    HEIGHT: 0,
     start: 0,
     end: 0,
     callback: null,
+    currentAnimationIndex: 0,
+    animations: [function () {
+        with (gallery) {
+            for (var i = start; i < end; i++) {
+                Zooms[i].N += 1 / 160;
+                h = Math.pow(5, Zooms[i].N % (end - start));
+                with (Zooms[i].span.style) {
+                    left = ((WIDTH - (h * Zooms[i].ratio)) / (WIDTH + h) * (WIDTH * 0.5)) + "px";
+                    top = ((HEIGHT - h) / (HEIGHT + h) * (HEIGHT * 0.5)) + "px";
+                    width = (h * Zooms[i].ratio) + "px";
+                    height = h + "px";
+                    zIndex = Math.round(10000 - h * 0.1);
+                }
+            }
+        }
+    }, function () {
+        with (gallery) {
+            for (var i = start; i < end; i++) {
+                Zooms[i].N += 1 / 160;
+                h = Math.pow(5, Zooms[i].N % LENGTH);
+                w = h * Zooms[i].ratio;
+
+                with (Zooms[i].span.style) {
+                    width = w + "px";
+                    height = h + "px";
+                    if (w > WIDTH) {
+                        left = (WIDTH - w) / 2 + "px";
+                    } else {
+                        left = 0 + "px";
+                    }
+                    if (h > HEIGHT) {
+                        top = (HEIGHT - h) / 2 + "px"
+                    } else {
+                        top = (HEIGHT - h) + "px";
+                    }
+                    zIndex = Math.round(10000 - h * 0.1);
+                }
+            }
+        }
+    }],
 
     Zoom: function (i) {
         with (gallery) {
@@ -92,17 +134,7 @@ var gallery = {
 
     loop: function () {
         with (this) {
-            for (var i = start; i < end; i++) {
-                Zooms[i].N += 1 / 160;
-                h = Math.pow(5, Zooms[i].N % (end - start));
-                with (Zooms[i].span.style) {
-                    left = ((screenWidth - (h * Zooms[i].ratio)) / (screenWidth + h) * (screenWidth * 0.5)) + "px";
-                    top = ((screenHeight - h) / (screenHeight + h) * (screenHeight * 0.5)) + "px";
-                    width = (h * Zooms[i].ratio) + "px";
-                    height = h + "px";
-                    zIndex = Math.round(10000 - h * 0.1);
-                }
-            }
+            animations[currentAnimationIndex]();
             if (status == 1) {
                 setTimeout("gallery.loop();", 16);
             }
@@ -127,7 +159,14 @@ var gallery = {
     },
 
     animation: function () {
-        alert("animation");
+        with (this) {
+            var i = Math.floor(Math.random() * animations.length);
+            if (currentAnimationIndex == i) {
+                animation();
+            } else {
+                currentAnimationIndex = i;
+            }
+        }
     },
 
     next: function () {
@@ -151,8 +190,6 @@ var gallery = {
             }
 
         }
-        console.log(this.start);
-        console.log(this.end);
     },
 
     init: function (_target, _photos, _callback) {
@@ -160,8 +197,8 @@ var gallery = {
             callback = _callback;
             target = _target;
             photos = _photos;
-            screenWidth = parseInt($(target).css("width"));
-            screenHeight = parseInt($(target).css("height"));
+            WIDTH = parseInt($(target).css("width"));
+            HEIGHT = parseInt($(target).css("height"));
 
             var m = photos.length % LENGTH;
             if (photos.length > 0 && m != 0) {
@@ -176,10 +213,11 @@ var gallery = {
             for (var i = 0; i < photos.length; i++) {
                 Zooms[i] = new Zoom(i);
             }
+
+            currentAnimationIndex = Math.floor(Math.random() * animations.length);
         }
     }
 }
-
 
 $(function () {
     $("#screen").css({
