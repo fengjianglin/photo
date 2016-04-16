@@ -27,10 +27,10 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping("/2")
+    @RequestMapping("/photos")
     public String index2(Model model) throws IOException {
         Iterable<Photo> photos = photoService.all();
         model.addAttribute("photos", JSONArray.fromObject(photos));
-        return "index2";
+        return "photos";
     }
 }
