@@ -19,7 +19,7 @@ public class Album {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "create_at")
+    @Column(name = "created_at")
     private Date createdAt;
 
     public int getId() {

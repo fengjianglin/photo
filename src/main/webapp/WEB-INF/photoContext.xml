@@ -28,4 +28,6 @@
         <property name="properties" ref="props"/>
     </bean>
 
+    <bean id="userFilter" class="photo.baby.filter.UserFilter"/>
+
 </beans>

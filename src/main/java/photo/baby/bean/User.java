@@ -21,7 +21,7 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "create_at")
+    @Column(name = "created_at")
     private Date createdAt;
 
     public int getId() {

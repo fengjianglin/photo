@@ -27,7 +27,7 @@ public class Prompt {
     private int y;
 
 
-    @Column(name = "create_at")
+    @Column(name = "created_at")
     private Date createdAt;
 
     public int getId() {

@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import photo.baby.bean.Photo;
+import photo.baby.bean.User;
 import photo.baby.entity.Progress;
 import photo.baby.ext.PhotoMultipartResolver;
 import photo.baby.service.PhotoService;
@@ -28,7 +29,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Controller
 @RequestMapping(value = "admin")
-public class AdminController {
+public class AdminController extends BaseController {
 
     private static final AtomicInteger sequenceGenerator = new AtomicInteger();
     private static final Random random = new Random();
@@ -37,7 +38,10 @@ public class AdminController {
     private PhotoService photoService;
 
     @RequestMapping(value = "", method = {RequestMethod.GET}, produces = "text/html;charset=utf-8")
-    public String index(Model model) {
+    public String index(@ModelAttribute("user") User user, Model model) {
+        if (user == null) {
+            return "login";
+        }
         String key = sequenceGenerator.getAndIncrement() + "_" + random.nextInt(Integer.MAX_VALUE);
         model.addAttribute("key", key);
         model.addAttribute("photos", photoService.all());

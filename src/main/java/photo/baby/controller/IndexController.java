@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 @Controller
 @RequestMapping(value = "/")
-public class IndexController {
+public class IndexController extends BaseController {
 
     @Autowired
     private PhotoService photoService;
