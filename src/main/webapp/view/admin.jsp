@@ -57,8 +57,46 @@
             }
         }
 
+        $(function () {
+            $("#generate_access").on("click", function () {
+                $.ajax({
+                    url: "/user/generate_access",
+                    async: true,
+                    dataType: "json",
+                    type: "GET",
+                    success: function (data) {
+                        $("#url").text(data.url);
+                        $('#url_modal').modal('show');
+                    }
+                });
+            });
+        });
     </script>
+
     <div class="row">
+        <div class="col-sm-12 col-xs-12 col">
+            <button id="generate_access" type="button" class="btn btn-primary">生成访问链接</button>
+        </div>
+
+        <div class="modal fade" id="url_modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p id="url"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button id="copy_btn" type="button" class="btn btn-primary"
+                                onclick="window.location.href=$('#url').text();">跳转到链接地址
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
         <div class="col-sm-12 col-xs-12 col">
             <div class="input-group">
                 <div class="input-group-addon">选择图片</div>

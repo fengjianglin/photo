@@ -40,7 +40,7 @@ public class AdminController extends BaseController {
     @RequestMapping(value = "", method = {RequestMethod.GET}, produces = "text/html;charset=utf-8")
     public String index(@ModelAttribute("user") User user, Model model) {
         if (user == null) {
-            return "login";
+            return "redirect:/user/login?from=/admin";
         }
         String key = sequenceGenerator.getAndIncrement() + "_" + random.nextInt(Integer.MAX_VALUE);
         model.addAttribute("key", key);
