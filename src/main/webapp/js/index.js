@@ -219,18 +219,33 @@ var gallery = {
     }
 }
 
-$(function () {
-    $("#screen").css({
-        width: $(window).width(),
-        height: $(window).height()
-    });
+function countdown(time) {
 
-    $(document.body).bind('touchmove', function (e) {
-        e.preventDefault();
-    });
+    if (time <= 0) {
+        window.location.reload();
+    }
+    var diff = time;
+    var hours = Math.floor(diff / (1000 * 60 * 60));
+    diff -= hours * (1000 * 60 * 60);
 
-    $(document.body).doubletap(function (e) {
-        e.preventDefault()
-    });
-});
+    var minutes = Math.floor(diff / (1000 * 60));
+    diff -= minutes * (1000 * 60);
+
+    var seconds = Math.floor(diff / (1000));
+    diff -= seconds * (1000);
+
+    if (hours < 10)
+        hours = '0' + hours;
+
+    if (minutes < 10)
+        minutes = '0' + minutes;
+
+    if (seconds < 10)
+        seconds = '0' + seconds;
+
+    var text = hours + ":" + minutes + ":" + seconds;
+    $("#countdown").text(text);
+
+    setTimeout("countdown(" + (time - 1000) + ");", 1000);
+}
 

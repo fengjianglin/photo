@@ -15,7 +15,7 @@ public class Utils {
         int seq = sequenceGenerator.getAndIncrement();
         String base = "abcdefghijklmnopqrstuvwxyz0123456789";
         Random random = new Random();
-        StringBuffer sb = new StringBuffer(seq).append("_");
+        StringBuffer sb = new StringBuffer().append(seq).append("_");
         for (int i = 0; i < LENGTH; i++) {
             int number = random.nextInt(base.length());
             sb.append(base.charAt(number));

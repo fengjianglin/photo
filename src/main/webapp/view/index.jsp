@@ -10,6 +10,28 @@
     <script src="${pageContext.request.contextPath}/js/index.js"></script>
 
     <script>
+
+
+        $(function () {
+            $("#screen").css({
+                width: $(window).width(),
+                height: $(window).height()
+            });
+
+            $(document.body).bind('touchmove', function (e) {
+                e.preventDefault();
+            });
+
+            $(document.body).doubletap(function (e) {
+                e.preventDefault()
+            });
+
+            if (!![${time}][0]) {
+                countdown(${time});
+            }
+        });
+
+
         window.onload = function () {
 
             gallery.init(document.getElementById("screen"),
@@ -41,7 +63,9 @@
 
         <div class="vertical-line"></div>
 
-        <div id="list_btn"  onclick="window.location='/photos'"></div>
+        <div id="list_btn" onclick="window.location='/photos'"></div>
+
+        <div id="countdown">00:00:00</div>
 
     </div>
 

@@ -61,7 +61,7 @@ public class UserController extends BaseController {
         }
         at.setToken(Utils.accessToken());
         at.setStatus(1);
-        at.setExpired(System.currentTimeMillis() + 1000 * 60 * 60);
+        at.setExpired(System.currentTimeMillis() + 1000 * 60 * 2);
         try {
             URL url = new URL(request.getRequestURL().toString());
             String host = url.getHost();

@@ -17,8 +17,6 @@ import photo.baby.service.PhotoService;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by apple on 16/3/25.
@@ -26,9 +24,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Controller
 @RequestMapping(value = "photo")
 public class PhotoController extends BaseController {
-
-    private static final AtomicInteger sequenceGenerator = new AtomicInteger();
-    private static final Random random = new Random();
 
     @Autowired
     private PhotoService photoService;

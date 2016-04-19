@@ -89,6 +89,13 @@ body {
     animation: rotating 1.2s linear infinite;
 }
 
+#countdown {
+    float: right;
+    padding: 4px;
+    margin: 12px 4px;
+    color: #000;
+}
+
 @-webkit-keyframes rotating {
     from {
         -webkit-transform: rotate(0deg);
