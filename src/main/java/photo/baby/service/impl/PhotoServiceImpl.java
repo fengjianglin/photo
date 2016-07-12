@@ -58,10 +58,7 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
     @Override
     public Photo save(MultipartFile multipartFile, String name) throws IOException {
 
-
-        File tempImage = new File(fileDir, "tmp_" + name);
         File image = new File(fileDir, name);
-
 
         InputStream inputStream = multipartFile.getInputStream();
 
