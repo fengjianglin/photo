@@ -17,6 +17,7 @@ import photo.baby.repository.PromptRepository;
 import photo.baby.service.AlbumService;
 import photo.baby.service.PhotoService;
 import sun.awt.image.ImageAccessException;
+import sun.misc.BASE64Decoder;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
@@ -53,6 +54,42 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
 
     public File file(String name) {
         return new File(fileDir, name);
+    }
+
+
+    public Photo save(String base64, String name) throws IOException {
+        File image = new File(fileDir, name);
+        OutputStream outputStream = new FileOutputStream(image);
+
+        byte[] bytes = new BASE64Decoder().decodeBuffer(base64.split(",")[1]);
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
+
+        compressImage(inputStream, outputStream);
+
+        BufferedImage bufferedImage = ImageIO.read(image);
+
+        int orientation = 1;
+        try {
+            Metadata metadata = ImageMetadataReader.readMetadata(image);
+            ExifIFD0Directory exifIFD0Directory = metadata.getFirstDirectoryOfType(ExifIFD0Directory.class);
+            orientation = exifIFD0Directory.getInt(ExifIFD0Directory.TAG_ORIENTATION);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Photo photo = new Photo();
+        photo.setName(name);
+        if (orientation > 4) {
+            photo.setWidth(bufferedImage.getHeight());
+            photo.setHeight(bufferedImage.getWidth());
+        } else {
+            photo.setWidth(bufferedImage.getWidth());
+            photo.setHeight(bufferedImage.getHeight());
+        }
+
+        photo.setSize(bytes.length);
+        photo.setCreatedAt(new Date());
+        return photoRepository.save(photo);
     }
 
     @Override

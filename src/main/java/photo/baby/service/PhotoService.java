@@ -15,6 +15,8 @@ public interface PhotoService {
 
     public Photo save(MultipartFile multipartFile, String name) throws IOException;
 
+    public Photo save(String base64, String name) throws IOException;
+
     public boolean delete(Photo photo);
 
     public List<Photo> latestPhotos(int page);

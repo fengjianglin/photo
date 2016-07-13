@@ -6,6 +6,8 @@
 <t:layout>
 
     <script src="${pageContext.request.contextPath}/js/ajaxfileupload.js"></script>
+    <script src="${pageContext.request.contextPath}/js/lrz.bundle.js"></script>
+
     <link href="${pageContext.request.contextPath}/css/admin.css" rel="stylesheet">
 
     <script>
@@ -70,12 +72,52 @@
                     }
                 });
             });
+
+            $("#image_input2").on('change', function () {
+                lrz(this.files[0])
+                        .then(function (rst) {
+                            // 处理成功会执行
+                            console.log(rst);
+                            console.log(rst.origin.name);
+
+                            $.ajax({
+                                        url: "/admin/photo/base64",
+                                        type: "POST",
+                                        data: {
+                                            base64: rst.base64,
+                                            name: rst.origin.name
+                                        },
+                                        dataType: "json",
+                                        success: function (data, status) {
+                                            window.location.reload();
+                                        },
+                                        error: function (data, status, e) {
+                                            alert(e);
+                                        }
+                                    }
+                            );
+                        })
+                        .catch(function (err) {
+                            // 处理失败会执行
+                            alert(err);
+                        })
+                        .always(function () {
+                            // 不管是成功失败，都会执行
+                        });
+            });
         });
     </script>
 
     <div class="row">
-        <div class="col-sm-12 col-xs-12 col">
+        <div class="col-sm-6 col-xs-6 col">
             <button id="generate_access" type="button" class="btn btn-primary">生成访问链接</button>
+        </div>
+
+        <div class="col-sm-6 col-xs-6 col">
+            <div class="input-group">
+                <div class="input-group-addon">压缩上传图片</div>
+                <input id="image_input2" type="file" class="form-control" name="image"/>
+            </div>
         </div>
 
         <div class="modal fade" id="url_modal" tabindex="-1" role="dialog">

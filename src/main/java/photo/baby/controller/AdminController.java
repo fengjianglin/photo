@@ -130,6 +130,27 @@ public class AdminController extends BaseController {
         return p;
     }
 
+    @RequestMapping(value = "photo/base64", method = {RequestMethod.POST})
+    @ResponseBody
+    public Photo photo_base64(HttpSession session,
+                            HttpServletRequest req,
+                            RedirectAttributes attr,
+                            String base64,
+                            String name) {
+        Photo photo = null;
+        Date now = new Date();
+
+        String imageFilename = now.getTime() + name;
+        try {
+            photo = photoService.save(base64, imageFilename);
+            attr.addFlashAttribute("flash", "上传成功");
+        } catch (IOException e) {
+            e.printStackTrace();
+            attr.addFlashAttribute("error", "上传失败");
+        }
+        return photo;
+    }
+
     @RequestMapping(value = "upload_progress", produces = "application/json;charset=utf-8")
     @ResponseBody
     public String upload_progress(HttpSession session,
