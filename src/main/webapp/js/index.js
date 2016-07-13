@@ -23,6 +23,7 @@ var music = {
         if (this.currentMusicIndex == i) {
             return this.randomMusicUrl();
         }
+        this.currentMusicIndex = i;
         return music.list[i];
     },
 

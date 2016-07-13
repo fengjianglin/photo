@@ -77,9 +77,6 @@
                 lrz(this.files[0])
                         .then(function (rst) {
                             // 处理成功会执行
-                            console.log(rst);
-                            console.log(rst.origin.name);
-
                             $.ajax({
                                         url: "/admin/photo/base64",
                                         type: "POST",
