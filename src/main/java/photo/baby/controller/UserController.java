@@ -1,6 +1,7 @@
 package photo.baby.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,9 @@ public class UserController extends BaseController {
 
     @Autowired
     private ServletContext servletContext;
+
+    @Value("#{props['access_token_expired']}")
+    private long access_token_expired;
 
     @RequestMapping(value = "login", method = {RequestMethod.GET}, produces = "text/html;charset=utf-8")
     public String _login(@RequestParam(required = false, defaultValue = "/") String from, Model model) {
@@ -61,7 +65,7 @@ public class UserController extends BaseController {
         }
         at.setToken(Utils.accessToken());
         at.setStatus(1);
-        at.setExpired(System.currentTimeMillis() + 1000 * 60 * 2);
+        at.setExpired(System.currentTimeMillis() + 1000 * 60 * access_token_expired);
         try {
             URL url = new URL(request.getRequestURL().toString());
             String host = url.getHost();

@@ -23,3 +23,7 @@ mongo.password=F8Y9eizGLXT3
 
 fileDir=/var/lib/openshift/57146e4b89f5cfd43800006c/app-root/data/photo
 host=http://haizi.photo
+
+# minutes
+# 1440m = 24h = 1day
+access_token_expired=1440

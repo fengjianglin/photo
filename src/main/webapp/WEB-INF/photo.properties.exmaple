@@ -24,3 +24,6 @@ mongo.password=
 fileDir=/Users/apple/test
 host=http://192.168.5.167:8080
 
+# minutes
+# 1440m = 24h = 1day
+access_token_expired=1440
