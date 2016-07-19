@@ -62,6 +62,7 @@ var gallery = {
 
     LENGTH: 6, // 最大播放图片数量
     status: 0, // 0:暂停；1:播放
+    onload: 0, // 0:正在加载；1:加载完成
     target: null,
     photos: [],
     Zooms: [],
@@ -111,7 +112,33 @@ var gallery = {
         }
     }],
 
+    ensureOnLoad: function(index){
+        with (gallery) {
+
+            if (onload == 1) {
+                return;
+            }
+
+            if(index > -1){
+                Zooms[index].onload = 1;
+            }
+
+            for(var i = 0; i < Zooms.length; i++){
+                if(Zooms[i].onload == 0){
+                    return;
+                }
+            }
+
+            onload == 1;
+
+            if(callback != null){
+                callback("loaded");
+            }
+        }
+    },
+
     Zoom: function (i) {
+        this.onload = 0; // 0:正在加载；1:加载成功；-1:加载失败
         with (gallery) {
             this.span = document.createElement("span");
             this.span.setAttribute("class", 'span-slide');
@@ -120,6 +147,7 @@ var gallery = {
             var image = document.createElement("img");
             image.setAttribute("class", 'img-slide');
             image.setAttribute("src", photos[i].url);
+            image.setAttribute("onload", "gallery.ensureOnLoad(" + i + ")");
             this.span.appendChild(image);
 
             this.N = i;
@@ -214,6 +242,7 @@ var gallery = {
             for (var i = 0; i < photos.length; i++) {
                 Zooms[i] = new Zoom(i);
             }
+            gallery.ensureOnLoad(-1);
 
             currentAnimationIndex = Math.floor(Math.random() * animations.length);
         }
