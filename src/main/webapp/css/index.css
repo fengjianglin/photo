@@ -26,18 +26,13 @@ body {
     display: inline-block;
     width: 32px;
     height: 32px;
-    background: url('../images/pause.png') no-repeat 0 0;
+    background: url('../images/play.png') no-repeat 0 0;
     background-size: 100%;
 }
 
 #gallery_btn.on {
-    background: url('../images/pause.png') no-repeat 0 0;
-    background-size: 100%;
-}
-
-#gallery_btn.off {
-    background: url('../images/play.png') no-repeat 0 0;
-    background-size: 100%;
+    -webkit-animation: rotating 1.2s linear infinite;
+    animation: rotating 1.2s linear infinite;
 }
 
 #gallery_next_btn {

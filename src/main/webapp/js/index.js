@@ -32,11 +32,11 @@ var music = {
         var audio = document.getElementById(audio_id);
         if (this.status == 1) {
             this.status = 0;
-            $(btn).removeClass('on').addClass('off');
+            $(btn).removeClass('on');
             audio.pause();
         } else {
             this.status = 1;
-            $(btn).removeClass('off').addClass('on');
+            $(btn).addClass('on');
             if (!!!$(audio).attr("src")) {
                 $(audio).attr("src", this.randomMusicUrl());
                 audio.load();
@@ -50,7 +50,7 @@ var music = {
         var audio = document.getElementById(audio_id);
         if (this.status == 0) {
             this.status = 1;
-            $(btn).removeClass('off').addClass('on');
+            $(btn).addClass('on');
         }
         $(audio).attr("src", this.randomMusicUrl());
         audio.load();

@@ -35,9 +35,9 @@
                     ${photos},
                     function (status) {
                         if ("play" == status) {
-                            $("#gallery_btn").removeClass('off').addClass('on');
+                            $("#gallery_btn").addClass('on');
                         } else if ("pause" == status) {
-                            $("#gallery_btn").removeClass('on').addClass('off');
+                            $("#gallery_btn").removeClass('on');
                         }
                     });
 
