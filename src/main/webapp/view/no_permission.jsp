@@ -19,8 +19,16 @@
     </script>
 
     <div class="alert alert-danger" role="alert" style="margin: 16px 0;">
-        没有权限查看此页面，请联系QQ:286345708
+        <p>
+            没有权限查看此页面，请联系QQ:286345708
+        </p>
+        <br />
+        <div class="btn-group btn-group-justified" role="group">
+            <a type="button" class="btn btn-info" href="/preview">预览</a>
+            <a type="button" class="btn btn-success" href="/user/login">登陆</a>
+        </div>
     </div>
+
 
     <div id="canvas">
         <canvas id="storm"></canvas>

@@ -38,6 +38,14 @@ public class IndexController extends BaseController {
         return index_token(response, user, "", model);
     }
 
+    @RequestMapping("/preview")
+    public String preview(HttpServletResponse response,
+                        Model model) throws IOException {
+        Iterable<Photo> photos = photoService.all();
+        model.addAttribute("photos", JSONArray.fromObject(photos));
+        return "index";
+    }
+
     @RequestMapping("photos")
     public String photos(@ModelAttribute("user") User user,
                          @CookieValue("access_token") String token,
