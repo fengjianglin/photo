@@ -160,5 +160,6 @@ var gallery = {
 
             currentAnimationIndex = Math.floor(Math.random() * animations.length);
         }
+        return this;
     }
 }

@@ -12,7 +12,6 @@
 
     <script>
 
-
         $(function () {
             $("#screen").css({
                 width: $(window).width(),
@@ -39,10 +38,16 @@
                         } else if ("pause" == status) {
                             $("#gallery_btn").removeClass('on');
                         }
-                    });
+                    }).play_or_pause();
 
-            gallery.play_or_pause();
-
+            music.init(document.getElementById("music"),
+                    function (status) {
+                        if ("play" == status) {
+                            $("#audio_btn").addClass('on');
+                        } else if ("pause" == status) {
+                            $("#audio_btn").removeClass('on');
+                        }
+                    }).play();
         });
 
     </script>
@@ -55,9 +60,9 @@
 
         <div class="vertical-line"></div>
 
-        <div id="random_btn" onclick="music.random('audio_btn', 'music')"></div>
-        <div id="audio_btn" onclick="music.play_or_pause('audio_btn','music')">
-            <audio id="music" loop="loop"></audio>
+        <div id="random_btn" onclick="music.random()"></div>
+        <div id="audio_btn" onclick="music.play_or_pause()">
+            <audio id="music" loop="loop" autoplay="autoplay"></audio>
         </div>
 
         <div class="vertical-line"></div>

@@ -17,7 +17,8 @@ var music = {
         "/raw/zyxc.m4a"],
 
     currentMusicIndex: 0,
-
+    audio: null,
+    callback: null,
     randomMusicUrl: function () {
         var i = Math.floor(Math.random() * music.list.length);
         if (this.currentMusicIndex == i) {
@@ -26,35 +27,53 @@ var music = {
         this.currentMusicIndex = i;
         return music.list[i];
     },
-
-    play_or_pause: function (btn_id, audio_id) {
-        var btn = document.getElementById(btn_id);
-        var audio = document.getElementById(audio_id);
+    init: function(_audio, _callback){
+        with (this) {
+            audio = _audio;
+            callback = _callback;
+        }
+        return this;
+    },
+    play: function(){
+        if (this.status == 0) {
+            this.status = 1;
+            if (!!!$(this.audio).attr("src")) {
+                $(this.audio).attr("src", this.randomMusicUrl());
+                this.audio.load();
+            }
+            this.audio.play();
+            if (this.callback != null) {
+                this.callback("play");
+            }
+        }
+    },
+    pause: function(){
         if (this.status == 1) {
             this.status = 0;
-            $(btn).removeClass('on');
-            audio.pause();
-        } else {
-            this.status = 1;
-            $(btn).addClass('on');
-            if (!!!$(audio).attr("src")) {
-                $(audio).attr("src", this.randomMusicUrl());
-                audio.load();
+            this.audio.pause();
+            if (this.callback != null) {
+                this.callback("pause");
             }
-            audio.play();
+        }
+    },
+    play_or_pause: function () {
+        if (this.status == 1) {
+            this.pause();
+        } else {
+            this.play();
         }
     },
 
-    random: function (btn_id, audio_id) {
-        var btn = document.getElementById(btn_id);
-        var audio = document.getElementById(audio_id);
+    random: function () {
         if (this.status == 0) {
             this.status = 1;
-            $(btn).addClass('on');
+            if (this.callback != null) {
+                this.callback("play");
+            }
         }
-        $(audio).attr("src", this.randomMusicUrl());
-        audio.load();
-        audio.play();
+        $(this.audio).attr("src", this.randomMusicUrl());
+        this.audio.load();
+        this.audio.play();
     }
 }
 
