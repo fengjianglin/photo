@@ -67,7 +67,7 @@
 
         <div class="vertical-line"></div>
 
-        <div id="list_btn" onclick="window.location='/photos'"></div>
+        <div id="list_btn" onclick="window.location='/_photos'"></div>
 
         <div id="countdown">00:00:00</div>
 

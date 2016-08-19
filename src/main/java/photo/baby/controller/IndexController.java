@@ -63,6 +63,13 @@ public class IndexController extends BaseController {
         return "photos";
     }
 
+    @RequestMapping("_photos")
+    public String _photos(Model model) throws IOException {
+        Iterable<Photo> photos = photoService.all();
+        model.addAttribute("photos", JSONArray.fromObject(photos));
+        return "photos";
+    }
+
 
     @RequestMapping("{token:.*}")
     public String index_token(HttpServletResponse response,
