@@ -105,27 +105,13 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
 
         BufferedImage bufferedImage = ImageIO.read(image);
 
-
-        int orientation = 1;
-        try {
-            Metadata metadata = ImageMetadataReader.readMetadata(image);
-            ExifIFD0Directory exifIFD0Directory = metadata.getFirstDirectoryOfType(ExifIFD0Directory.class);
-            orientation = exifIFD0Directory.getInt(ExifIFD0Directory.TAG_ORIENTATION);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         Photo photo = new Photo();
-        photo.setName(name);
-        if (orientation > 4) {
-            photo.setWidth(bufferedImage.getHeight());
-            photo.setHeight(bufferedImage.getWidth());
-        } else {
-            photo.setWidth(bufferedImage.getWidth());
-            photo.setHeight(bufferedImage.getHeight());
-        }
 
-        photo.setSize(multipartFile.getSize());
+        photo.setName(name);
+        photo.setWidth(bufferedImage.getWidth());
+        photo.setHeight(bufferedImage.getHeight());
+
+        photo.setSize(image.length());
         photo.setCreatedAt(new Date());
         return photoRepository.save(photo);
     }
@@ -160,10 +146,8 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
         return true;
     }
 
-
-    @Override
-    public List<Photo> latestPhotos(int page) {
-        PageRequest pageRequest = new PageRequest(page, 10, Sort.Direction.DESC, "id");
+    public List<Photo> latestPhotos(int page, int size){
+        PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.DESC, "id");
         List<Photo> list = new ArrayList<Photo>();
         Page<Photo> photos = photoRepository.pageablePhotos(pageRequest);
         for (Photo p : photos) {
@@ -171,6 +155,11 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
             list.add(p);
         }
         return list;
+    }
+
+    @Override
+    public List<Photo> latestPhotos(int page) {
+        return latestPhotos(page, 10);
     }
 
     public Prompt save(Prompt p) {
@@ -194,5 +183,9 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
             p.setUrl(host + "/photo/" + p.getName());
         }
         return p;
+    }
+
+    public long count(){
+        return photoRepository.count();
     }
 }

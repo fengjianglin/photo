@@ -19,6 +19,8 @@ public interface PhotoService {
 
     public boolean delete(Photo photo);
 
+    public List<Photo> latestPhotos(int page, int size);
+
     public List<Photo> latestPhotos(int page);
 
     public Prompt save(Prompt p);
@@ -26,5 +28,7 @@ public interface PhotoService {
     public Iterable<Photo> all();
 
     public Photo find(int id);
+
+    public long count();
 
 }

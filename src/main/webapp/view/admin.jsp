@@ -158,6 +158,13 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 col">
+            <div width="80%" class="alert alert-success" role="alert" style="padding: 4px 8px;margin-bottom: 0;">
+                照片总共${count}张
+            </div>
+        </div>
+    </div>
 
     <c:forEach var="photo" items="${photos}" varStatus="status">
         <c:if test="${status.index % 4 == 0}">
@@ -190,5 +197,13 @@
             </div>
         </c:if>
     </c:forEach>
+
+    <c:if test="${all != 1}">
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 col" style="text-align: center;">
+                <a href="/admin/all">加载全部</a>
+            </div>
+        </div>
+    </c:if>
 
 </t:layout>

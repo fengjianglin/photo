@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -44,6 +45,23 @@ public class AdminController extends BaseController {
         }
         String key = sequenceGenerator.getAndIncrement() + "_" + random.nextInt(Integer.MAX_VALUE);
         model.addAttribute("key", key);
+        long count = photoService.count();
+        model.addAttribute("count", count);
+        List<Photo> photos = photoService.latestPhotos(0, 16);
+        model.addAttribute("all", count == photos.size() ? 1 : 0);
+        model.addAttribute("photos", photos);
+        return "admin";
+    }
+
+    @RequestMapping(value = "all", method = {RequestMethod.GET}, produces = "text/html;charset=utf-8")
+    public String index_all(@ModelAttribute("user") User user, Model model) {
+        if (user == null) {
+            return "redirect:/user/login?from=/admin";
+        }
+        String key = sequenceGenerator.getAndIncrement() + "_" + random.nextInt(Integer.MAX_VALUE);
+        model.addAttribute("key", key);
+        model.addAttribute("all", 1);
+        model.addAttribute("count", photoService.count());
         model.addAttribute("photos", photoService.all());
         return "admin";
     }
