@@ -8,7 +8,7 @@
     <link href="${pageContext.request.contextPath}/css/index.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/js/double.tap.js"></script>
     <script src="${pageContext.request.contextPath}/js/index.js"></script>
-    <script src="${pageContext.request.contextPath}/js/gallery.js"></script>
+    <script src="${pageContext.request.contextPath}/js/gallery_sync.js"></script>
 
     <script>
 
