@@ -7,8 +7,8 @@ import java.util.Date;
  * Created by apple on 16/3/28.
  */
 @Entity
-@Table(name = "Prompt")
-public class Prompt {
+@Table(name = "Label")
+public class Label {
     @Id
     @GeneratedValue
     @Column(name = "id")

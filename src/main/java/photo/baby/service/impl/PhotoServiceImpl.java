@@ -10,21 +10,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import photo.baby.bean.Label;
 import photo.baby.bean.Photo;
-import photo.baby.bean.Prompt;
+import photo.baby.repository.LabelRepository;
 import photo.baby.repository.PhotoRepository;
-import photo.baby.repository.PromptRepository;
 import photo.baby.service.AlbumService;
 import photo.baby.service.PhotoService;
-import sun.awt.image.ImageAccessException;
 import sun.misc.BASE64Decoder;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
-import javax.imageio.stream.FileImageInputStream;
-import javax.imageio.stream.IIOByteBuffer;
 import javax.imageio.stream.ImageOutputStream;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -44,7 +41,7 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
     private PhotoRepository photoRepository;
 
     @Autowired
-    private PromptRepository promptRepository;
+    private LabelRepository labelRepository;
 
     @Value("#{props['fileDir']}")
     private String fileDir;
@@ -146,7 +143,7 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
         return true;
     }
 
-    public List<Photo> latestPhotos(int page, int size){
+    public List<Photo> latestPhotos(int page, int size) {
         PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.DESC, "id");
         List<Photo> list = new ArrayList<Photo>();
         Page<Photo> photos = photoRepository.pageablePhotos(pageRequest);
@@ -162,8 +159,8 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
         return latestPhotos(page, 10);
     }
 
-    public Prompt save(Prompt p) {
-        return promptRepository.save(p);
+    public Label save(Label p) {
+        return labelRepository.save(p);
     }
 
 
@@ -185,7 +182,7 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
         return p;
     }
 
-    public long count(){
+    public long count() {
         return photoRepository.count();
     }
 }

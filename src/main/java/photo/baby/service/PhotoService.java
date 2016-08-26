@@ -1,8 +1,8 @@
 package photo.baby.service;
 
 import org.springframework.web.multipart.MultipartFile;
+import photo.baby.bean.Label;
 import photo.baby.bean.Photo;
-import photo.baby.bean.Prompt;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +23,7 @@ public interface PhotoService {
 
     public List<Photo> latestPhotos(int page);
 
-    public Prompt save(Prompt p);
+    public Label save(Label p);
 
     public Iterable<Photo> all();
 

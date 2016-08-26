@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import photo.baby.bean.Prompt;
+import photo.baby.bean.Label;
 import photo.baby.service.PhotoService;
 
 import java.io.File;
@@ -38,10 +38,10 @@ public class PhotoController extends BaseController {
         return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(image), headers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "prompt", method = {RequestMethod.POST}, produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "label", method = {RequestMethod.POST}, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public Prompt prompt(int photo_id, int x, int y, String text) {
-        Prompt p = new Prompt();
+    public Label label(int photo_id, int x, int y, String text) {
+        Label p = new Label();
         p.setCreatedAt(new Date());
         p.setPhotoId(photo_id);
         p.setText(text);
