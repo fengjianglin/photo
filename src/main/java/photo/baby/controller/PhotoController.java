@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import photo.baby.bean.Label;
+import photo.baby.bean.Comment;
 import photo.baby.service.PhotoService;
 
 import java.io.File;
@@ -40,8 +40,8 @@ public class PhotoController extends BaseController {
 
     @RequestMapping(value = "label", method = {RequestMethod.POST}, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public Label label(int photo_id, int x, int y, String text) {
-        Label p = new Label();
+    public Comment label(int photo_id, int x, int y, String text) {
+        Comment p = new Comment();
         p.setCreatedAt(new Date());
         p.setPhotoId(photo_id);
         p.setText(text);

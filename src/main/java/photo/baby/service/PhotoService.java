@@ -1,12 +1,11 @@
 package photo.baby.service;
 
 import org.springframework.web.multipart.MultipartFile;
-import photo.baby.bean.Label;
+import photo.baby.bean.Comment;
 import photo.baby.bean.Photo;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 public interface PhotoService {
@@ -23,7 +22,7 @@ public interface PhotoService {
 
     public List<Photo> latestPhotos(int page);
 
-    public Label save(Label p);
+    public Comment save(Comment p);
 
     public Iterable<Photo> all();
 

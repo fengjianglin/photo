@@ -3,9 +3,22 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
+
+<style type="text/css">
+
+    .popover {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 0;
+        z-index: 2147483647;
+    }
+
+</style>
+
 <t:photo_frame>
 
-    <link href="${pageContext.request.contextPath}/css/clickable.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/js/clickable.js"></script>
 
     <div id="images">
@@ -14,7 +27,7 @@
         </c:forEach>
     </div>
 
-    <div id="popover" class="popover image_toolbar">
+    <div id="popover" class="popover">
         <div class="input-group has-success">
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>

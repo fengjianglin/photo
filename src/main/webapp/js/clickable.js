@@ -52,7 +52,7 @@ $(function () {
             if (text.length == 0) {
                 alert("内容不能为空！");
             } else {
-                $.post("/photo/prompt", {
+                $.post("/photo/label", {
                     photo_id: p.photo_id,
                     x: p.x_px,
                     y: p.y_px,

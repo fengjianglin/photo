@@ -7,8 +7,8 @@ import java.util.Date;
  * Created by apple on 16/3/28.
  */
 @Entity
-@Table(name = "Label")
-public class Label {
+@Table(name = "Comment")
+public class Comment {
     @Id
     @GeneratedValue
     @Column(name = "id")

@@ -10,9 +10,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import photo.baby.bean.Label;
+import photo.baby.bean.Comment;
 import photo.baby.bean.Photo;
-import photo.baby.repository.LabelRepository;
+import photo.baby.repository.CommentRepository;
 import photo.baby.repository.PhotoRepository;
 import photo.baby.service.AlbumService;
 import photo.baby.service.PhotoService;
@@ -41,7 +41,7 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
     private PhotoRepository photoRepository;
 
     @Autowired
-    private LabelRepository labelRepository;
+    private CommentRepository commentRepository;
 
     @Value("#{props['fileDir']}")
     private String fileDir;
@@ -159,8 +159,8 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
         return latestPhotos(page, 10);
     }
 
-    public Label save(Label p) {
-        return labelRepository.save(p);
+    public Comment save(Comment p) {
+        return commentRepository.save(p);
     }
 
 
