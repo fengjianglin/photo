@@ -24,6 +24,8 @@ public interface PhotoService {
 
     public Comment save(Comment p);
 
+    public List<Comment> comments(int photoId);
+
     public Iterable<Photo> all();
 
     public Photo find(int id);

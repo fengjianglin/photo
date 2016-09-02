@@ -164,6 +164,9 @@ public class PhotoServiceImpl implements PhotoService, AlbumService {
     }
 
 
+    public List<Comment> comments(int photoId){
+        return commentRepository.findAllByPhotoId(photoId);
+    }
     public Iterable<Photo> all() {
         List<Photo> list = new ArrayList<Photo>();
         Iterable<Photo> photos = photoRepository.findAllByOrderByIdDesc();
