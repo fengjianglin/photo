@@ -22,12 +22,11 @@
         }
 
         .blueimp-gallery > .comments {
-            padding: 2px;
             position: absolute;
-            width: 22px;
-            height: 21px;
+            width: 32px;
+            height: 32px;
             left: 16px;
-            bottom:14px;
+            bottom:8px;
             filter: alpha(opacity=50);
             -moz-opacity: 0.5;
             opacity: 0.5;
@@ -36,11 +35,10 @@
 
         .blueimp-gallery > .comment {
             position: absolute;
-            width: 16px;
-            height: 16px;
+            width: 32px;
+            height: 32px;
             left: 80px;
-            bottom:17px;
-            background: url("/gallery/img/comment.png")  0 0 no-repeat;
+            bottom:8px;
             filter: alpha(opacity=50);
             -moz-opacity: 0.5;
             opacity: 0.5;
@@ -48,10 +46,12 @@
         }
 
         .blueimp-gallery > .comments.on {
-            height: 22px;
-            left: 15px;
+            width: 34px;
+            height: 34px;
             border: solid 1px #999;
-            border-radius: 11px;
+            border-radius: 2px;
+            left: 15px;
+            bottom:7px;
         }
 
         .blueimp-gallery-controls > .comments {
@@ -146,7 +146,7 @@
 
         <p class="msg">message</p>
         <a class="comments"><img src="/gallery/img/comments.png" /></a>
-        <a class="comment" data-toggle="modal" data-target="#comment_dialog"></a>
+        <a class="comment" data-toggle="modal" data-target="#comment_dialog"><img src="/gallery/img/comment.png" /></a>
         <div class="modal fade" id="comment_dialog" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
