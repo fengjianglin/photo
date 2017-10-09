@@ -81,6 +81,16 @@
             display: none;
         }
 
+        .blueimp-gallery > .comments_wall {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            filter: alpha(opacity=50);
+            -moz-opacity: 0.5;
+            opacity: 0.5;
+            display: none;
+        }
+
     </style>
 
     <script>
@@ -138,7 +148,9 @@
     <div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">
         <!-- The container for the modal slides -->
         <div class="slides"></div>
-        <!-- Controls for the borderless lightbox -->
+
+        <div class="comments_wall"></div>
+
         <a class="prev">‹</a>
         <a class="next">›</a>
         <a class="close">×</a>
